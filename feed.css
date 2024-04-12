@@ -1,0 +1,85 @@
+/* feed.css */
+
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: Helvetica, Arial, sans-serif;
+    background-color: rgb(245, 245, 245);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#content {
+    margin-top: 50px;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#feed {
+    max-height: 80vh;
+    padding: 10px;
+    width: 100%; /* Alterado */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.post {
+    position: relative;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    width: 100%; /* Alterado */
+}
+
+.post img {
+    max-width: 100%;
+    border-radius: 5px;
+}
+
+.post-number {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    background-color: rgba(0, 0, 0, 0.5); /* Cinza */
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 3px;
+}
+
+#create-post {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    background-color: rgb(197, 197, 197);
+    width: 100%; /* Alterado */
+}
+
+#create-post textarea {
+    width: 100%;
+    height: 100px;
+    background-color: rgb(197, 197, 197);
+    resize: none; /* Impede o redimensionamento */
+    border-style: none;
+}
+
+/* Estilo quando o textarea está focado */
+#create-post textarea:focus {
+    outline: none; /* Remove a borda de foco */
+}
+
+#create-post button {
+    margin-top: 10px;
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
