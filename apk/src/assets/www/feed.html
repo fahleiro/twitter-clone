@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feed</title>
+    <link rel="stylesheet" href="feed.css">
+</head>
+<body>
+    <div id="content">
+        <h1>Feed</h1>
+        
+        <!-- Formulário para criar nova publicação -->
+        <div id="create-post">
+            <textarea id="post-content" placeholder="Escreva sua publicação aqui..."></textarea>
+            <button id="post-button" class="button-disabled" onclick="createPost()">Postar</button>
+        </div>
+
+        <!-- Div de feed -->
+        <div id="feed"></div>
+    </div>
+
+    <script src="feed.js"></script>
+</body>
+</html>
