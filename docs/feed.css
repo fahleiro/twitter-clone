@@ -50,6 +50,7 @@ body, html {
     color: #fff;
     padding: 5px 10px;
     border-radius: 3px;
+    display: none;
 }
 
 #create-post {
@@ -82,4 +83,16 @@ body, html {
     border: none;
     border-radius: 3px;
     cursor: pointer;
+}
+
+#create-post button.button-disabled {
+    cursor: default;
+    background-color: gray;
+}
+
+
+
+#post-button[disabled] {
+    cursor: default;
+    background-color: gray;
 }

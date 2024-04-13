@@ -1,6 +1,9 @@
 // Contador para o número de publicações
 var postCount = 0;
 var postsPerPage = 10;
+var nextPostsCount = 0; // Definir a variável nextPostsCount globalmente
+var buttonVisible = false; // Variável para controlar a visibilidade do botão
+
 
 // Verificar se o usuário está autenticado
 var usuarioAutenticado = localStorage.getItem('usuarioAutenticado');
@@ -11,15 +14,37 @@ if (!usuarioAutenticado) {
 
 // Adicionar botão para exibir próximas publicações acima do feed
 var nextPostsButton = document.createElement('button');
-nextPostsButton.textContent = `Exibir próximas publicações`;
+nextPostsButton.style.display = 'none'; // Inicialmente ocultar o botão
+updateNextPostsButtonText(); // Chamar a função para atualizar o texto do botão
 nextPostsButton.onclick = function() {
     createNextPosts();
 };
 document.getElementById('feed').insertAdjacentElement('afterbegin', nextPostsButton);
 
+// Verificar se o textarea está vazio e atualizar o estilo do botão
+function updateButtonStyle() {
+    var postContent = document.getElementById('post-content').value.trim();
+    var postButton = document.getElementById('post-button');
+    if (postContent === '') {
+        postButton.disabled = true;
+        postButton.classList.add('button-disabled');
+    } else {
+        postButton.disabled = false;
+        postButton.classList.remove('button-disabled');
+    }
+}
+
+// Chamar a função para atualizar o estilo do botão inicialmente
+updateButtonStyle();
+
+// Chamar a função quando o conteúdo do textarea mudar
+document.getElementById('post-content').addEventListener('input', updateButtonStyle);
+
+
 // Função para criar uma nova publicação
 function createPost() {
     var content = document.getElementById('post-content').value.trim();
+    var postButton = document.getElementById('post-button');
     if (content !== '') {
         var post = document.createElement('div');
         post.classList.add('post');
@@ -32,13 +57,27 @@ function createPost() {
         var feed = document.getElementById('feed');
         feed.insertBefore(post, nextPostsButton.nextSibling); // Inserir o post após o botão
         document.getElementById('post-content').value = ''; // Limpar o campo de texto após a publicação
+
+        // Desabilitar o botão após a publicação
+        postButton.disabled = true;
+        postButton.classList.add('button-disabled');
+
+        // Atualizar o estilo do botão
+        updateButtonStyle();
+    } else {
+        // Se o conteúdo estiver vazio, manter o botão desabilitado
+        postButton.disabled = true;
+        postButton.classList.add('button-disabled');
     }
 }
 
+// Função para atualizar o texto do botão com o valor de nextPostsCount
+function updateNextPostsButtonText() {
+    nextPostsButton.textContent = `Exibir próximas ${nextPostsCount} publicações`;
+}
 
 // Função para criar as próximas publicações
 function createNextPosts() {
-    var nextPostsCount = Math.floor(Math.random() * 9) + 1; // Gera um número aleatório de 1 a 9
     addPosts(nextPostsCount);
 }
 
@@ -60,6 +99,19 @@ function addPosts(count) {
         `;
         document.getElementById('feed').insertBefore(post, nextPostsButton.nextSibling);
     }
+    nextPostsCount = Math.floor(Math.random() * 9) + 1; // Atualizar o valor de nextPostsCount após adicionar as publicações
+    updateNextPostsButtonText(); // Atualizar o texto do botão com o novo valor de nextPostsCount
+
+    // Ocultar o botão
+    nextPostsButton.style.display = 'none';
+    buttonVisible = false;
+
+    // Definir um intervalo aleatório para mostrar o botão novamente
+    var intervalo = Math.floor(Math.random() * (30000 - 5000 + 1)) + 5000; // Intervalo entre 5 e 30 segundos
+    setTimeout(function() {
+        nextPostsButton.style.display = 'inline-block';
+        buttonVisible = true;
+    }, intervalo);
 }
 
 // Criar 10 publicações iniciais
